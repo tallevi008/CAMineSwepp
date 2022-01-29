@@ -6,16 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mine Sweeper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css\main.css">
 </head>
 
-<body onload="initGame()" oncontextmenu="return false">
+<body oncontextmenu="return false">
     <h1>Mine Sweeper</h1>
-    <h2>Timer:<span></span></h2>
-    <tbody></tbody>
-    <div class="table-container">
+    <h2 id="reset" onclick="reset(this)">😎</h2>
+    <div class="hints"></div>
+    <div id="safe"></div>
+
+
+    <button id="Beginner" onclick="initGame(id)">Beginner</button>
+    <button id="Medium" onclick="initGame(id)">Medium</button>
+    <button id="Expert" onclick="initGame(id)">Expert</button>
+
+
+
+
+
+
+    <div class="counters">
+        <h2 class="timer" hidden>Seconds passed:<span></span></h2>
+        <h2 class="lives" hidden>Lives left:<span></span></h2>
     </div>
 
+    <div class="table-container" hidden>
+    </div>
 
     <Script src="js\util.js"></Script>
     <Script src="js\game.js"></Script>

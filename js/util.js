@@ -1,24 +1,22 @@
 'use strict';
 
-//Updating timer
-function updateTimer() {
-    var now = Date.now()
-    var time = (((now - gStartTime) / 1000) / 60).toFixed(1);
-    var elTimer = document.querySelector(' h2 span');
-    elTimer.innerText = time;
-}
+//build Board in the modal and set mines at random
+function buildBoard() {
+    var board = [];
+    for (var i = 0; i < gLevel.SIZE; i++) {
+        board[i] = [];
+        for (var j = 0; j < gLevel.SIZE; j++) {
+            board[i][j] = {
+                minesAroundCount: 0,
+                isShown: false,
+                isMine: false,
+                isMarked: false
+            }
+        }
 
-
-
-// Get randomcolor
-
-function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
     }
-    return color;
+
+    return board;
 }
 
 //Get random number
@@ -28,17 +26,6 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 }
 
-// Shufle numbers
-function shuffle(items) {
-    var randIdx, keep, i;
-    for (i = items.length - 1; i > 0; i--) {
-        randIdx = getRandomInt(0, items.length - 1);
-
-        keep = items[i];
-        items[i] = items[randIdx];
-        items[randIdx] = keep;
-    }
-}
 
 function getNoMinesCellsIdx(board) {
     var cellsIdx = [];
@@ -57,28 +44,11 @@ function getNoMinesCellsIdx(board) {
 
 }
 
-// if (cellClicked.innerText === MINE) {
-//     console.log('LOSER!!!');
+//Clear all intervals in the game
+function clearAllIntervals() {
+    clearInterval(gIntervalTimer)
+    gIntervalTimer = null;
+    clearTimeout(gHintTime);
+    gHintTime = null;
+}
 
-//     for (var i = 0; i < gMinesLocations.length; i++) {
-//         var currMine = gMinesLocations[i];
-//         //Updatind DOM
-//         var elTd = document.querySelector(`[data-i="${currMine.i}"][data-j="${currMine.j}"]`);
-//         elTd.innerText = MINE;
-//     }
-// }
-
-
-
-// for (var i = 0; i < gBoard.length; i++) {
-//     for (var j = 0; j < gLevel.length; j++) {
-//         var elTd;
-//         var currCell = gBoard[i][j];
-
-//         if (cellClicked.innerText === MINE) {
-//             var elTd = document.querySelector(`[data-i="${i}"][data-j="${j}"]`);
-//             elTd.innerText = MINE;
-//         }
-//         else (currCell.isMine && currCell.isMarked || currCell.isShown)
-
-//     }
